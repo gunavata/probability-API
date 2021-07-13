@@ -5,7 +5,7 @@ import com.tbww.probability.model.Response;
 
 public interface InterfaceService<T> {
     
-    public Response getResult(String result, String message, ActivityResult state);
+    public Response getResponse(String result, String message, ActivityResult state);
 
     public ActivityResult compareActivity(T player, T ai);
 

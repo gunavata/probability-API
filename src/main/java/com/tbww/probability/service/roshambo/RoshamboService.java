@@ -8,6 +8,8 @@ import com.tbww.probability.service.InterfaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.tbww.probability.model.ActivityResult.*;
+
 @Service
 public class RoshamboService implements InterfaceService<RoshamboEnum> {
 
@@ -15,7 +17,7 @@ public class RoshamboService implements InterfaceService<RoshamboEnum> {
     private RoshamboAlgorithm aiService;
 
     @Override
-    public Response getResult(String result, String message, ActivityResult state) {
+    public Response getResponse(String result, String message, ActivityResult state) {
         return Response.builder().result(result).message(message).state(state).build();
     }
 
@@ -40,11 +42,11 @@ public class RoshamboService implements InterfaceService<RoshamboEnum> {
     public ActivityResult compareActivity(RoshamboEnum player, RoshamboEnum ai) {
         RoshamboEnum counter = aiService.getAICheat(player);
         if(ai == counter) {
-            return ActivityResult.LOSE;
+            return LOSE;
         } else if (ai == player) {
-            return ActivityResult.TIE;
+            return TIE;
         } else {
-            return ActivityResult.WIN;
+            return WIN;
         }
     }
 
@@ -74,7 +76,7 @@ public class RoshamboService implements InterfaceService<RoshamboEnum> {
         String message = generateMessage(state);
         String result = generateResult(choice, aiChoice);
 
-        return getResult(result, message, state);
+        return getResponse(result, message, state);
     }
 
     
