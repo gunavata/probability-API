@@ -5,6 +5,8 @@ import com.tbww.probability.service.InterfaceAlgorithm;
 
 import org.springframework.stereotype.Component;
 
+import static com.tbww.probability.model.roshambo.RoshamboEnum.*;
+
 @Component
 public class RoshamboAlgorithm implements InterfaceAlgorithm<RoshamboEnum> {
 
@@ -12,20 +14,20 @@ public class RoshamboAlgorithm implements InterfaceAlgorithm<RoshamboEnum> {
     public RoshamboEnum getAIResponse() {
         double response = Math.random();
         if (response <= 0.334) {
-            return RoshamboEnum.PAPER;
+            return PAPER;
         } else if (response <= 0.667) {
-            return RoshamboEnum.ROCK;
+            return ROCK;
         } else {
-            return RoshamboEnum.SCISSOR;
+            return SCISSOR;
         }
     }
 
     @Override
     public RoshamboEnum getAICheat(RoshamboEnum choice) {
         return switch (choice) {
-            case PAPER -> RoshamboEnum.SCISSOR;
-            case ROCK -> RoshamboEnum.PAPER;
-            case SCISSOR -> RoshamboEnum.ROCK;
+            case PAPER -> SCISSOR;
+            case ROCK -> PAPER;
+            case SCISSOR -> ROCK;
             default -> throw new IllegalArgumentException("Choice is not valid! -> " + choice.toString());
         };
     }
