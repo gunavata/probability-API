@@ -1,4 +1,4 @@
-package com.tbww.probability.service.roshambo;
+package com.tbww.probability.service.coin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,58 +7,56 @@ import static org.mockito.Mockito.when;
 import com.tbww.probability.model.ActivityResult;
 import com.tbww.probability.model.Response;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static com.tbww.probability.model.roshambo.RoshamboEnum.*;
 import static com.tbww.probability.model.ActivityResult.*;
+import static com.tbww.probability.model.coin.CoinEnum.*;
+
+
 
 @SpringBootTest
-public class RoshamboServiceTests {
-    
+public class CoinServiceTests {
+
     @Autowired
-    RoshamboService service;
+    CoinService service;
 
     @MockBean
-    private RoshamboAlgorithm algorithm;
+    CoinAlgorithm algorithm;
 
     @BeforeEach
     public void setup() {
-        when(algorithm.getAIResponse()).thenReturn(ROCK);
-        when(algorithm.getAICheat(ROCK)).thenReturn(PAPER);
-        when(algorithm.getAICheat(SCISSOR)).thenReturn(ROCK);
-        when(algorithm.getAICheat(PAPER)).thenReturn(SCISSOR);
+        when(algorithm.getAIResponse()).thenReturn(HEAD);
+        when(algorithm.getAICheat(HEAD)).thenReturn(TAIL);
+        when(algorithm.getAICheat(TAIL)).thenReturn(HEAD);
     }
 
     @Test
-    @DisplayName("When computing, return valid Response")
+    @DisplayName("When flipping, return valid Response")
     void computeValid() {
-        var response = service.compute(ROCK, 0);
+        var response = service.flip(HEAD, 0);
 
         var expectedResponse = Response.builder()
-                                        .result("You choose ROCK against the AI's ROCK")
-                                        .message("Nice Try! You Tied!")
-                                        .state(TIE)
+                                        .result("You choose HEAD and the result was HEAD")
+                                        .message("You got it right!")
+                                        .state(WIN)
                                         .build();
 
         assertEquals(expectedResponse, response);
     }
 
     @Test
-    @DisplayName("When computing a cheat, return valid losing Response")
+    @DisplayName("When flipping a cheat, return valid losing Response")
     void computeValidCheat() {
-        var response = service.compute(ROCK, 2);
+        var response = service.flip(HEAD, 1);
 
         var expectedResponse = Response.builder()
-                                        .result("You choose ROCK against the AI's PAPER")
-                                        .message("Too bad! You Lost!")
+                                        .result("You choose HEAD and the result was TAIL")
+                                        .message("You got it wrong!")
                                         .state(LOSE)
                                         .build();
 
@@ -69,30 +67,22 @@ public class RoshamboServiceTests {
     @DisplayName("When computing with invalid level, throw exception")
     void computeInvalidLevel() {
         assertThrows(IllegalArgumentException.class, () -> {
-            service.compute(ROCK, 69);
+            service.flip(TAIL, 69);
         });
     }
 
     @Test
-    @DisplayName("When comparing PAPER to ROCK, return WIN")
-    void comparePaperRock() {
-        var response = service.compareActivity(PAPER, ROCK);
+    @DisplayName("When comparing HEAD to HEAD, return WIN")
+    void compareHeadHead() {
+        var response = service.compareActivity(HEAD, HEAD);
 
         assertEquals(WIN, response);
     }
 
     @Test
-    @DisplayName("When comparing ROCK to ROCK, return TIE")
-    void compareRockRock() {
-        var response = service.compareActivity(ROCK, ROCK);
-
-        assertEquals(TIE, response);
-    }
-
-    @Test
-    @DisplayName("When comparing SCISSOR to ROCK, return LOSE")
-    void compareScissorRock() {
-        var response = service.compareActivity(SCISSOR, ROCK);
+    @DisplayName("When comparing HEAD to TAIL, return LOSE")
+    void compareHeadTail() {
+        var response = service.compareActivity(HEAD, TAIL);
 
         assertEquals(LOSE, response);
     }
@@ -100,9 +90,9 @@ public class RoshamboServiceTests {
     @Test
     @DisplayName("When generating result, expect a formatted string")
     void generateResult() {
-        var response = service.generateResult(ROCK, SCISSOR);
+        var response = service.generateResult(TAIL, HEAD);
 
-        String expectedResponse = "You choose ROCK against the AI's SCISSOR";
+        String expectedResponse = "You choose TAIL and the result was HEAD";
 
         assertEquals(expectedResponse, response);
     }
@@ -112,7 +102,7 @@ public class RoshamboServiceTests {
     void generateWinMessage() {
         var response = service.generateMessage(WIN);
 
-        String expectedResponse = "Congratulations! You Won!";
+        String expectedResponse = "You got it right!";
 
         assertEquals(expectedResponse, response);
     }
@@ -122,19 +112,17 @@ public class RoshamboServiceTests {
     void generateLoseMessage() {
         var response = service.generateMessage(LOSE);
 
-        String expectedResponse = "Too bad! You Lost!";
+        String expectedResponse = "You got it wrong!";
 
         assertEquals(expectedResponse, response);
     }
 
     @Test
-    @DisplayName("When generating a TIE, expect a TIE message")
+    @DisplayName("When generating a TIE, throw an exception")
     void generateTieMessage() {
-        var response = service.generateMessage(TIE);
-
-        String expectedResponse = "Nice Try! You Tied!";
-
-        assertEquals(expectedResponse, response);
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.generateMessage(TIE);
+        }, "TIE is not a valid option!");
     }
 
     @Test
@@ -142,7 +130,7 @@ public class RoshamboServiceTests {
     void getResponse() {
         String result = "Result is here";
         String message = "Message is here";
-        ActivityResult state = TIE;
+        ActivityResult state = WIN;
         var response = service.getResponse(result, message, state);
 
         var expectedResponse = Response.builder()
@@ -153,5 +141,5 @@ public class RoshamboServiceTests {
 
         assertEquals(expectedResponse, response);
     }
-
+    
 }
