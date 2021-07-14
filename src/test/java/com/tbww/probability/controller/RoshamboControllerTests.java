@@ -1,16 +1,12 @@
 package com.tbww.probability.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.net.URI;
 
 import com.tbww.probability.model.ActivityResult;
 import com.tbww.probability.model.Help;
 import com.tbww.probability.model.Response;
 
-import org.assertj.core.api.StringAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class RoshamboControllerTests {
 
     @Autowired
-    TestRestTemplate restTemplate = new TestRestTemplate();
+    TestRestTemplate restTemplate;
 
     HttpEntity<String> entity = new HttpEntity<>(new HttpHeaders());
 

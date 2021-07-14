@@ -23,7 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CoinControllerTests {
 
     @Autowired
-    TestRestTemplate restTemplate = new TestRestTemplate();
+    TestRestTemplate restTemplate;
 
     HttpEntity<String> entity = new HttpEntity<>(new HttpHeaders());
 
@@ -111,7 +111,7 @@ public class CoinControllerTests {
 
         var response = restTemplate.getForObject(validUrl, Response.class);
 
-        String expectedMessage = "Too bad! You Lost!";
+        String expectedMessage = "You got it wrong!";
 
         assertEquals(expectedMessage, response.getMessage());
         assertEquals(ActivityResult.LOSE, response.getState());
