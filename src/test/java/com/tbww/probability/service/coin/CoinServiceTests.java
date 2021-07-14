@@ -136,7 +136,7 @@ public class CoinServiceTests {
         var expectedResponse = Response.builder()
                                         .result(result)
                                         .message(message)
-                                        .state(TIE)
+                                        .state(WIN)
                                         .build();
 
         assertEquals(expectedResponse, response);

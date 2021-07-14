@@ -21,6 +21,7 @@ public class BaseController implements InterfaceController {
                 .sample("GET: /RPS/help").build();
     }
 
+    @Override
     @GetMapping("/")
     public Help getDefault() {
         return getHelp();
