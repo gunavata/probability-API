@@ -12,4 +12,4 @@ TODO List:
 - [ ] Cards - High/Low
 - [ ] Gacha
 
-![](dance.gif)
+![](duck.gif)
