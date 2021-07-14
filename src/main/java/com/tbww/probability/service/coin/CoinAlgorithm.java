@@ -7,13 +7,15 @@ import org.springframework.stereotype.Component;
 
 import static com.tbww.probability.model.coin.CoinEnum.*;
 
+import java.security.SecureRandom;
+
 @Component
 public class CoinAlgorithm implements InterfaceAlgorithm<CoinEnum> {
 
     @Override
     public CoinEnum getAIResponse() {
-        double response = Math.random();
-        return response >= 50 ? HEAD : TAIL;
+        var random = new SecureRandom();
+        return random.nextDouble() >= 50 ? HEAD : TAIL;
     }
 
     @Override

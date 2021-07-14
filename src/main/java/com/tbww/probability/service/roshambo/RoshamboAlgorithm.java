@@ -7,15 +7,18 @@ import org.springframework.stereotype.Component;
 
 import static com.tbww.probability.model.roshambo.RoshamboEnum.*;
 
+import java.security.SecureRandom;
+
 @Component
 public class RoshamboAlgorithm implements InterfaceAlgorithm<RoshamboEnum> {
 
     @Override
     public RoshamboEnum getAIResponse() {
-        double response = Math.random();
-        if (response <= 0.334) {
+        var random = new SecureRandom();
+        var response = random.nextDouble();
+        if (response <= 0.333) {
             return PAPER;
-        } else if (response <= 0.667) {
+        } else if (response <= 0.666) {
             return ROCK;
         } else {
             return SCISSOR;
