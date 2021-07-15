@@ -5,6 +5,8 @@ import com.tbww.probability.service.InterfaceAlgorithm;
 
 import org.springframework.stereotype.Component;
 
+import lombok.Generated;
+
 import static com.tbww.probability.model.roshambo.RoshamboEnum.*;
 
 import java.security.SecureRandom;
@@ -13,6 +15,7 @@ import java.security.SecureRandom;
 public class RoshamboAlgorithm implements InterfaceAlgorithm<RoshamboEnum> {
 
     @Override
+    @Generated
     public RoshamboEnum getAIResponse() {
         var random = new SecureRandom();
         var response = random.nextDouble();
