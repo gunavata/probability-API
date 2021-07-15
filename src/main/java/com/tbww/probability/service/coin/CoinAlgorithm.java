@@ -5,6 +5,8 @@ import com.tbww.probability.service.InterfaceAlgorithm;
 
 import org.springframework.stereotype.Component;
 
+import lombok.Generated;
+
 import static com.tbww.probability.model.coin.CoinEnum.*;
 
 import java.security.SecureRandom;
@@ -13,6 +15,7 @@ import java.security.SecureRandom;
 public class CoinAlgorithm implements InterfaceAlgorithm<CoinEnum> {
 
     @Override
+    @Generated
     public CoinEnum getAIResponse() {
         var random = new SecureRandom();
         return random.nextDouble() >= 0.5 ? HEAD : TAIL;
