@@ -51,14 +51,28 @@ class RoshamboServiceTests {
     }
 
     @Test
-    @DisplayName("When computing level 1, return valid Response")
-    void computeValidLevel1() {
+    @DisplayName("When computing level 1, return a valid Loss")
+    void computeValidLevel1Lose() {
         var response = service.compute(ROCK, 1);
 
         var expectedResponse = Response.builder()
                                         .result("You choose ROCK against the AI's PAPER")
                                         .message("Too bad! You Lost!")
                                         .state(LOSE)
+                                        .build();
+
+        assertEquals(expectedResponse, response);
+    }
+
+    @Test
+    @DisplayName("When computing level 1, return a valid Won")
+    void computeValidLevel1Win() {
+        var response = service.compute(PAPER, 1);
+
+        var expectedResponse = Response.builder()
+                                        .result("You choose PAPER against the AI's ROCK")
+                                        .message("Congratulations! You Won!")
+                                        .state(WIN)
                                         .build();
 
         assertEquals(expectedResponse, response);
