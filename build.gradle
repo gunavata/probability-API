@@ -5,6 +5,10 @@ plugins {
 	id "org.sonarqube" version "3.3"
 }
 
+ext {
+	swaggerVersion = '2.7.0'
+}
+
 group = 'com.tbww'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '16'
@@ -26,6 +30,8 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 }
 
 test {

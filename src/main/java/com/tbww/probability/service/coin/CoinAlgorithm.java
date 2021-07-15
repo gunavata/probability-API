@@ -15,7 +15,7 @@ public class CoinAlgorithm implements InterfaceAlgorithm<CoinEnum> {
     @Override
     public CoinEnum getAIResponse() {
         var random = new SecureRandom();
-        return random.nextDouble() >= 50 ? HEAD : TAIL;
+        return random.nextDouble() >= 0.5 ? HEAD : TAIL;
     }
 
     @Override
