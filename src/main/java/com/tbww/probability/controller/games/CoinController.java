@@ -1,5 +1,6 @@
-package com.tbww.probability.controller;
+package com.tbww.probability.controller.games;
 
+import com.tbww.probability.controller.InterfaceController;
 import com.tbww.probability.model.Help;
 import com.tbww.probability.model.Response;
 import com.tbww.probability.model.coin.CoinEnum;
@@ -37,6 +38,11 @@ public class CoinController implements InterfaceController {
     public Response playGame(@RequestParam(value = "choice") CoinEnum choice,
             @RequestParam(value = "level", defaultValue = "0") int level) {
         return service.flip(choice, level);
+    }
+
+    @GetMapping("/playone")
+    public CoinEnum playOne() {
+        return service.flipOne();
     }
 
 }

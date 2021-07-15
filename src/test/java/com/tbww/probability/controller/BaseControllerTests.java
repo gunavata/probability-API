@@ -2,8 +2,6 @@ package com.tbww.probability.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.net.URI;
-
 import com.tbww.probability.model.Help;
 
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +18,7 @@ public class BaseControllerTests {
     TestRestTemplate restTemplate;
 
     String expectedName = "Probability Games";
-    String expectedUsage = "Append param choice onto API and request /help for more info";
+    String expectedUsage = "Append param choice onto API and request /help for more info. All games have a /playone endpoint that returns a direct random choice";
 
     @Test
     @DisplayName("When GET /, a help infographic is returned")

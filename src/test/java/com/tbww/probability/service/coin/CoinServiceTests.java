@@ -1,11 +1,13 @@
 package com.tbww.probability.service.coin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import com.tbww.probability.model.ActivityResult;
 import com.tbww.probability.model.Response;
+import com.tbww.probability.model.coin.CoinEnum;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,8 +18,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static com.tbww.probability.model.ActivityResult.*;
 import static com.tbww.probability.model.coin.CoinEnum.*;
-
-
 
 @SpringBootTest
 public class CoinServiceTests {
@@ -140,6 +140,14 @@ public class CoinServiceTests {
                                         .build();
 
         assertEquals(expectedResponse, response);
+    }
+
+    @Test
+    @DisplayName("When flipOne, return a random choice")
+    void getFlipOne() {
+        var response = service.flipOne();
+
+        assertSame(CoinEnum.class, response.getClass());
     }
     
 }

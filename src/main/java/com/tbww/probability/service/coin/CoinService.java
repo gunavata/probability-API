@@ -57,5 +57,9 @@ public class CoinService implements InterfaceService<CoinEnum> {
 
         return getResponse(result, message, state);
     }
+
+    public CoinEnum flipOne() {
+        return aiService.getAIResponse();
+    }
     
 }
