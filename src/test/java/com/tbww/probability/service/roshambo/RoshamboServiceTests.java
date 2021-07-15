@@ -20,7 +20,7 @@ import static com.tbww.probability.model.roshambo.RoshamboEnum.*;
 import static com.tbww.probability.model.ActivityResult.*;
 
 @SpringBootTest
-public class RoshamboServiceTests {
+class RoshamboServiceTests {
     
     @Autowired
     RoshamboService service;
@@ -45,6 +45,20 @@ public class RoshamboServiceTests {
                                         .result("You choose ROCK against the AI's ROCK")
                                         .message("Nice Try! You Tied!")
                                         .state(TIE)
+                                        .build();
+
+        assertEquals(expectedResponse, response);
+    }
+
+    @Test
+    @DisplayName("When computing level 1, return valid Response")
+    void computeValidLevel1() {
+        var response = service.compute(ROCK, 1);
+
+        var expectedResponse = Response.builder()
+                                        .result("You choose ROCK against the AI's PAPER")
+                                        .message("Too bad! You Lost!")
+                                        .state(LOSE)
                                         .build();
 
         assertEquals(expectedResponse, response);

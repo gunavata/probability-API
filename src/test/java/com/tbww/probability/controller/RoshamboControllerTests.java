@@ -22,7 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class RoshamboControllerTests {
+class RoshamboControllerTests {
 
     @Autowired
     TestRestTemplate restTemplate;

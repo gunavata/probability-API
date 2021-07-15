@@ -20,7 +20,7 @@ import static com.tbww.probability.model.ActivityResult.*;
 import static com.tbww.probability.model.coin.CoinEnum.*;
 
 @SpringBootTest
-public class CoinServiceTests {
+class CoinServiceTests {
 
     @Autowired
     CoinService service;

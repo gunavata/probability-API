@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class BaseControllerTests {
+class BaseControllerTests {
 
     @Autowired
     TestRestTemplate restTemplate;
