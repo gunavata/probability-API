@@ -13,10 +13,10 @@ public class BaseController implements InterfaceController {
     @Override
     @GetMapping("/help")
     public Help getHelp() {
-        String param = "Possibilities: Rock Paper Scissors = /RPS";
+        String param = "Possibilities: Rock Paper Scissors = /RPS, Coin flip = /coin";
 
         return Help.builder().name("Probability Games")
-                .usage("Append param choice onto API and request /help for more info")
+                .usage("Append param choice onto API and request /help for more info. All games have a /playone endpoint that returns a direct random choice")
                 .params(param)
                 .sample("GET: /RPS/help").build();
     }

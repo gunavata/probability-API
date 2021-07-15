@@ -1,11 +1,13 @@
 package com.tbww.probability.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.tbww.probability.model.ActivityResult;
 import com.tbww.probability.model.Help;
 import com.tbww.probability.model.Response;
+import com.tbww.probability.model.coin.CoinEnum;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -115,6 +117,14 @@ public class CoinControllerTests {
 
         assertEquals(expectedMessage, response.getMessage());
         assertEquals(ActivityResult.LOSE, response.getState());
+    }
+
+    @Test
+    @DisplayName("When GET /coin/playone, return a random choice")
+    void getPlayOne() {
+        var response = restTemplate.getForObject("/coin/playone", CoinEnum.class);
+
+        assertSame(CoinEnum.class, response.getClass());
     }
     
 }

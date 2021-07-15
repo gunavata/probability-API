@@ -79,6 +79,8 @@ public class RoshamboService implements InterfaceService<RoshamboEnum> {
         return getResponse(result, message, state);
     }
 
-    
+    public RoshamboEnum computeOne() {
+        return aiService.getAIResponse();
+    }
 
 }

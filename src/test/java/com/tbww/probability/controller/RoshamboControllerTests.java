@@ -1,11 +1,13 @@
 package com.tbww.probability.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.tbww.probability.model.ActivityResult;
 import com.tbww.probability.model.Help;
 import com.tbww.probability.model.Response;
+import com.tbww.probability.model.roshambo.RoshamboEnum;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,35 +33,35 @@ public class RoshamboControllerTests {
     String expectedUsage = "Specify choice with optional level";
 
     @Test
-    @DisplayName("When GET /RPS/, roshambo help is returned")
+    @DisplayName("When GET /rps/, roshambo help is returned")
     void getDefaultEndpoint() {
-        var response = restTemplate.getForObject("/RPS/", Help.class);
+        var response = restTemplate.getForObject("/rps/", Help.class);
 
         assertEquals(expectedName, response.getName());
         assertEquals(expectedUsage, response.getUsage());
     }
 
     @Test
-    @DisplayName("When GET /RPS/help, roshambo help is returned")
+    @DisplayName("When GET /rps/help, roshambo help is returned")
     void getHelpEndpoint() {
-        var response = restTemplate.getForObject("/RPS/help", Help.class);
+        var response = restTemplate.getForObject("/rps/help", Help.class);
 
         assertEquals(expectedName, response.getName());
         assertEquals(expectedUsage, response.getUsage());
     }
 
     @Test
-    @DisplayName("When GET /RPS/play with missing params, return bad request")
+    @DisplayName("When GET /rps/play with missing params, return bad request")
     void getWithMissingParams() {
-        var response = restTemplate.exchange("/RPS/play", HttpMethod.GET, entity, Response.class);
+        var response = restTemplate.exchange("/rps/play", HttpMethod.GET, entity, Response.class);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
-    @DisplayName("When GET /RPS/play with invalid params, return bad request")
+    @DisplayName("When GET /rps/play with invalid params, return bad request")
     void getWithBadParams() {
-        String validUrl = UriComponentsBuilder.fromPath("/RPS/play")
+        String validUrl = UriComponentsBuilder.fromPath("/rps/play")
                         .queryParam("choice", "DOG")
                         .queryParam("level", "69")
                         .toUriString();
@@ -70,10 +72,10 @@ public class RoshamboControllerTests {
     }
 
     @Test
-    @DisplayName("When GET /RPS/play with required params, return valid result")
+    @DisplayName("When GET /rps/play with required params, return valid result")
     void getWithRequiredParams() {
         String choice = "PAPER";
-        String validUrl = UriComponentsBuilder.fromPath("/RPS/play")
+        String validUrl = UriComponentsBuilder.fromPath("/rps/play")
                         .queryParam("choice", choice)
                         .toUriString();
 
@@ -85,10 +87,10 @@ public class RoshamboControllerTests {
     }
 
     @Test
-    @DisplayName("When GET /RPS/play with all params, return valid result")
+    @DisplayName("When GET /rps/play with all params, return valid result")
     void getWithAllParams() {
         String choice = "SCISSOR";
-        String validUrl = UriComponentsBuilder.fromPath("/RPS/play")
+        String validUrl = UriComponentsBuilder.fromPath("/rps/play")
                         .queryParam("choice", choice)
                         .queryParam("level", 1)
                         .toUriString();
@@ -101,10 +103,10 @@ public class RoshamboControllerTests {
     }
 
     @Test
-    @DisplayName("When GET /RPS/play with cheat, return a loss result")
+    @DisplayName("When GET /rps/play with cheat, return a loss result")
     void getWithCheatingParams() {
         String choice = "ROCK";
-        String validUrl = UriComponentsBuilder.fromPath("/RPS/play")
+        String validUrl = UriComponentsBuilder.fromPath("/rps/play")
                         .queryParam("choice", choice)
                         .queryParam("level", 2)
                         .toUriString();
@@ -115,6 +117,14 @@ public class RoshamboControllerTests {
 
         assertEquals(expectedMessage, response.getMessage());
         assertEquals(ActivityResult.LOSE, response.getState());
+    }
+
+    @Test
+    @DisplayName("When GET /rps/playone, return a random choice") 
+    void getPlayOne() {
+        var response = restTemplate.getForObject("/rps/playone", RoshamboEnum.class);
+
+        assertSame(response.getClass(), RoshamboEnum.class);
     }
     
 }

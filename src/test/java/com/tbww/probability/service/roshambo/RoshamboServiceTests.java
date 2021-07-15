@@ -1,18 +1,17 @@
 package com.tbww.probability.service.roshambo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import com.tbww.probability.model.ActivityResult;
 import com.tbww.probability.model.Response;
+import com.tbww.probability.model.roshambo.RoshamboEnum;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -152,6 +151,14 @@ public class RoshamboServiceTests {
                                         .build();
 
         assertEquals(expectedResponse, response);
+    }
+
+    @Test
+    @DisplayName("When computeOne, expect a random choice")
+    void getComputeOne() {
+        var response = service.computeOne();
+
+        assertSame(RoshamboEnum.class, response.getClass());
     }
 
 }
