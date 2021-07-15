@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static com.tbww.probability.model.roshambo.RoshamboEnum.*;
 
 @SpringBootTest
-public class RoshamboAlgorithmTests {
+class RoshamboAlgorithmTests {
 
     @Autowired
     RoshamboAlgorithm algorithm;

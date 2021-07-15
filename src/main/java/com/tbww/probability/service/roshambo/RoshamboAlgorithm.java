@@ -27,12 +27,13 @@ public class RoshamboAlgorithm implements InterfaceAlgorithm<RoshamboEnum> {
 
     @Override
     public RoshamboEnum getAICheat(RoshamboEnum choice) {
-        return switch (choice) {
-            case PAPER -> SCISSOR;
-            case ROCK -> PAPER;
-            case SCISSOR -> ROCK;
-            default -> throw new IllegalArgumentException("Choice is not valid! -> " + choice.toString());
-        };
+        if(choice == PAPER) {
+            return SCISSOR;
+        } else if(choice == ROCK) {
+            return PAPER;
+        } else {
+            return ROCK;
+        }
     }
     
 }

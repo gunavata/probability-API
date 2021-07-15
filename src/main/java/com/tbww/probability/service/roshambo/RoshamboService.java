@@ -24,12 +24,13 @@ public class RoshamboService implements InterfaceService<RoshamboEnum> {
     @Override
     public String generateMessage(ActivityResult state) {
         String base = "%s! You %s!";
-        return switch (state) {
-            case LOSE -> String.format(base, "Too bad", state.getActivity());
-            case TIE -> String.format(base, "Nice Try", state.getActivity());
-            case WIN -> String.format(base, "Congratulations", state.getActivity());
-            default -> throw new IllegalArgumentException("Unknown state! -> " +  state.toString());
-        };
+        if(state == LOSE) {
+            return String.format(base, "Too bad", state.getActivity());
+        } else if(state == WIN) {
+            return String.format(base, "Congratulations", state.getActivity());
+        } else {
+            return String.format(base, "Nice Try", state.getActivity());
+        }
     }
 
     @Override

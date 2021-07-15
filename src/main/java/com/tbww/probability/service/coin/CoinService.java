@@ -38,8 +38,7 @@ public class CoinService implements InterfaceService<CoinEnum> {
         return switch (state) {
             case LOSE -> String.format(base, "wrong");
             case WIN -> String.format(base, "right");
-            case TIE -> throw new IllegalArgumentException("TIE is not a valid option!");
-            default -> throw new IllegalArgumentException("Unknown state! -> " +  state.toString());
+            default -> throw new IllegalArgumentException("TIE is not a valid option!");
         };
     }
 

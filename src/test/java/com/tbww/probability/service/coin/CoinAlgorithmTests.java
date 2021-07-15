@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static com.tbww.probability.model.coin.CoinEnum.*;
 
 @SpringBootTest
-public class CoinAlgorithmTests {
+class CoinAlgorithmTests {
 
     @Autowired
     CoinAlgorithm algorithm;
